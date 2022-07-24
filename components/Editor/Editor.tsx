@@ -5,13 +5,15 @@ import { RichTextPlugin as LexicalRichTextPlugin } from '@lexical/react/LexicalR
 import type { EditorState } from 'lexical'
 import type { FC } from 'react'
 
+import { ToolBar } from './ToolBar'
+
 type Props = {
   defaultState?: EditorState
 }
 
 const Editor: FC<Props> = ({ defaultState }) => {
   return (
-    <div className="relative bg-white rounded shadow border-gray-400/50 border">
+    <div className="relative rounded border border-gray-400/50 bg-white pt-12 shadow">
       <LexicalComposer
         initialConfig={{
           namespace: '',
@@ -19,12 +21,13 @@ const Editor: FC<Props> = ({ defaultState }) => {
           editorState: defaultState ?? null,
         }}
       >
+        <ToolBar />
         <LexicalRichTextPlugin
           contentEditable={
-            <LexicalContentEditable className="w-full h-[450px] outline-none p-4 resize-none" />
+            <LexicalContentEditable className="h-[450px] w-full resize-none overflow-y-auto p-4 outline-none" />
           }
           placeholder={
-            <div className="absolute top-4 left-4 text-gray-400 pointer-events-none select-none">
+            <div className="pointer-events-none absolute top-16 left-4 select-none text-gray-400">
               Enter some text...
             </div>
           }
