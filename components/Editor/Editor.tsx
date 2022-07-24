@@ -5,7 +5,7 @@ import { RichTextPlugin as LexicalRichTextPlugin } from '@lexical/react/LexicalR
 import type { EditorState } from 'lexical'
 import type { FC } from 'react'
 
-import { ToolBar } from './ToolBar'
+import { TreeViewPlugin } from './TreeViewPlugin'
 
 type Props = {
   defaultState?: EditorState
@@ -33,6 +33,7 @@ const Editor: FC<Props> = ({ defaultState }) => {
           }
         />
         <LexicalHistoryPlugin />
+        <TreeViewPlugin />
       </LexicalComposer>
     </div>
   )
