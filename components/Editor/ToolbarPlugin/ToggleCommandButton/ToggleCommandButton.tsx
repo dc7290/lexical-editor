@@ -5,7 +5,12 @@ type Props = {
   isActive: boolean
 } & Pick<ComponentProps<'button'>, 'children' | 'className' | 'onClick'>
 
-const Button: FC<Props> = ({ children, className, isActive, onClick }) => {
+const ToggleCommandButton: FC<Props> = ({
+  children,
+  className,
+  isActive,
+  onClick,
+}) => {
   return (
     <button
       type="button"
@@ -21,4 +26,4 @@ const Button: FC<Props> = ({ children, className, isActive, onClick }) => {
   )
 }
 
-export default Button
+export default ToggleCommandButton

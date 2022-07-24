@@ -5,6 +5,7 @@ import { RichTextPlugin as LexicalRichTextPlugin } from '@lexical/react/LexicalR
 import type { EditorState } from 'lexical'
 import type { FC } from 'react'
 
+import { ToolbarPlugin } from './ToolbarPlugin'
 import { TreeViewPlugin } from './TreeViewPlugin'
 
 type Props = {
@@ -21,7 +22,7 @@ const Editor: FC<Props> = ({ defaultState }) => {
           editorState: defaultState ?? null,
         }}
       >
-        <ToolBar />
+        <ToolbarPlugin />
         <LexicalRichTextPlugin
           contentEditable={
             <LexicalContentEditable className="h-[450px] w-full resize-none overflow-y-auto p-4 outline-none" />
