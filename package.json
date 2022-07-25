@@ -12,6 +12,8 @@
   },
   "dependencies": {
     "@heroicons/react": "^1.0.6",
+    "@lexical/headless": "0.3.8",
+    "@lexical/html": "0.3.8",
     "@lexical/react": "0.3.8",
     "clsx": "^1.2.1",
     "lexical": "0.3.8",

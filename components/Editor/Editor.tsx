@@ -17,7 +17,7 @@ const Editor: FC<Props> = ({ defaultState }) => {
     <div className="relative rounded border border-gray-400/50 bg-white pt-12 shadow">
       <LexicalComposer
         initialConfig={{
-          namespace: '',
+          namespace: 'editor',
           onError: (error) => console.error(error),
           editorState: defaultState ?? null,
         }}
