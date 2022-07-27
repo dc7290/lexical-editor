@@ -18,6 +18,7 @@ const ToolbarPlugin: FC = () => {
   const [isBold, setIsBold] = useState(false)
   const [isItalic, setIsItalic] = useState(false)
   const [isUnderline, setIsUnderline] = useState(false)
+  const [isStrikethrough, setIsStrikethrough] = useState(false)
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection()
@@ -25,6 +26,7 @@ const ToolbarPlugin: FC = () => {
       setIsBold(selection.hasFormat('bold'))
       setIsItalic(selection.hasFormat('italic'))
       setIsUnderline(selection.hasFormat('underline'))
+      setIsStrikethrough(selection.hasFormat('strikethrough'))
     }
   }, [])
 
@@ -79,6 +81,15 @@ const ToolbarPlugin: FC = () => {
           }}
         >
           U
+        </ToggleCommandButton>
+        <ToggleCommandButton
+          isActive={isStrikethrough}
+          className="line-through"
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'strikethrough')
+          }}
+        >
+          S
         </ToggleCommandButton>
       </div>
     </div>
