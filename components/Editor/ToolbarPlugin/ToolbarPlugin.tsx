@@ -21,6 +21,7 @@ const ToolbarPlugin: FC = () => {
   const [isUnderline, setIsUnderline] = useState(false)
   const [isStrikethrough, setIsStrikethrough] = useState(false)
   const [isCode, setIsCode] = useState(false)
+  const [isSubscript, setIsSubscript] = useState(false)
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection()
@@ -30,6 +31,7 @@ const ToolbarPlugin: FC = () => {
       setIsUnderline(selection.hasFormat('underline'))
       setIsStrikethrough(selection.hasFormat('strikethrough'))
       setIsCode(selection.hasFormat('code'))
+      setIsSubscript(selection.hasFormat('subscript'))
     }
   }, [])
 
@@ -96,12 +98,19 @@ const ToolbarPlugin: FC = () => {
         </ToggleCommandButton>
         <ToggleCommandButton
           isActive={isCode}
-          className=""
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
           }}
         >
           <CodeIcon className="w-4" />
+        </ToggleCommandButton>
+        <ToggleCommandButton
+          isActive={isSubscript}
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript')
+          }}
+        >
+          X<sub>2</sub>
         </ToggleCommandButton>
       </div>
     </div>
