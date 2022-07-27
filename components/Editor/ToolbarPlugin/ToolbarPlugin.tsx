@@ -1,3 +1,4 @@
+import { CodeIcon } from '@heroicons/react/outline'
 import { useLexicalComposerContext } from '@lexical/react/LexicalComposerContext'
 import { mergeRegister } from '@lexical/utils'
 import {
@@ -19,6 +20,7 @@ const ToolbarPlugin: FC = () => {
   const [isItalic, setIsItalic] = useState(false)
   const [isUnderline, setIsUnderline] = useState(false)
   const [isStrikethrough, setIsStrikethrough] = useState(false)
+  const [isCode, setIsCode] = useState(false)
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection()
@@ -27,6 +29,7 @@ const ToolbarPlugin: FC = () => {
       setIsItalic(selection.hasFormat('italic'))
       setIsUnderline(selection.hasFormat('underline'))
       setIsStrikethrough(selection.hasFormat('strikethrough'))
+      setIsCode(selection.hasFormat('code'))
     }
   }, [])
 
@@ -66,7 +69,7 @@ const ToolbarPlugin: FC = () => {
         </ToggleCommandButton>
         <ToggleCommandButton
           isActive={isItalic}
-          className="italic"
+          className="text-lg italic"
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
           }}
@@ -90,6 +93,15 @@ const ToolbarPlugin: FC = () => {
           }}
         >
           S
+        </ToggleCommandButton>
+        <ToggleCommandButton
+          isActive={isCode}
+          className=""
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'code')
+          }}
+        >
+          <CodeIcon className="w-4" />
         </ToggleCommandButton>
       </div>
     </div>
