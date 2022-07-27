@@ -17,7 +17,7 @@ const ToggleCommandButton: FC<Props> = ({
       className={clsx(
         className,
         isActive ? 'bg-indigo-200' : 'bg-transparent',
-        'my-auto flex h-8 w-8 items-center justify-center rounded'
+        'my-auto flex h-8 w-8 items-center justify-center rounded transition-colors duration-300'
       )}
       onClick={onClick}
     >
