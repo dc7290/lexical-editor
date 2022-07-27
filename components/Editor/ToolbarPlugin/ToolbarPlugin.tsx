@@ -5,7 +5,9 @@ import {
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_CRITICAL,
+  CONTROLLED_TEXT_INSERTION_COMMAND,
   FORMAT_TEXT_COMMAND,
+  REMOVE_TEXT_COMMAND,
   SELECTION_CHANGE_COMMAND,
 } from 'lexical'
 import { FC, useCallback, useEffect, useState } from 'react'
@@ -22,6 +24,7 @@ const ToolbarPlugin: FC = () => {
   const [isStrikethrough, setIsStrikethrough] = useState(false)
   const [isCode, setIsCode] = useState(false)
   const [isSubscript, setIsSubscript] = useState(false)
+  const [isSuperscript, setIsSuperscript] = useState(false)
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection()
@@ -32,6 +35,7 @@ const ToolbarPlugin: FC = () => {
       setIsStrikethrough(selection.hasFormat('strikethrough'))
       setIsCode(selection.hasFormat('code'))
       setIsSubscript(selection.hasFormat('subscript'))
+      setIsSuperscript(selection.hasFormat('superscript'))
     }
   }, [])
 
@@ -58,8 +62,8 @@ const ToolbarPlugin: FC = () => {
   }, [activeEditor, updateToolbar])
 
   return (
-    <div className="absolute top-0 flex h-12 w-full max-w-full overflow-x-auto border-b border-gray-400/50 px-4 shadow-sm">
-      <div className="my-auto flex h-8 space-x-2 border-r border-gray-300 pr-2">
+    <div className="absolute top-0 flex h-12 w-full max-w-full divide-x divide-gray-300 overflow-x-auto border-b border-gray-400/50 px-4 shadow-sm">
+      <div className="my-auto flex h-full items-center space-x-2 px-2">
         <ToggleCommandButton
           isActive={isBold}
           className="font-bold"
@@ -106,11 +110,21 @@ const ToolbarPlugin: FC = () => {
         </ToggleCommandButton>
         <ToggleCommandButton
           isActive={isSubscript}
+          className="text-sm"
           onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'subscript')
           }}
         >
           X<sub>2</sub>
+        </ToggleCommandButton>
+        <ToggleCommandButton
+          isActive={isSuperscript}
+          className="text-sm"
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'superscript')
+          }}
+        >
+          X<sup>2</sup>
         </ToggleCommandButton>
       </div>
     </div>
