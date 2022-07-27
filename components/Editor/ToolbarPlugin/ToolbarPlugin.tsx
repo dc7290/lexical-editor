@@ -17,12 +17,14 @@ const ToolbarPlugin: FC = () => {
 
   const [isBold, setIsBold] = useState(false)
   const [isItalic, setIsItalic] = useState(false)
+  const [isUnderline, setIsUnderline] = useState(false)
 
   const updateToolbar = useCallback(() => {
     const selection = $getSelection()
     if ($isRangeSelection(selection)) {
       setIsBold(selection.hasFormat('bold'))
       setIsItalic(selection.hasFormat('italic'))
+      setIsUnderline(selection.hasFormat('underline'))
     }
   }, [])
 
@@ -54,20 +56,29 @@ const ToolbarPlugin: FC = () => {
         <ToggleCommandButton
           isActive={isBold}
           className="font-bold"
-          onClick={() =>
+          onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'bold')
-          }
+          }}
         >
           B
         </ToggleCommandButton>
         <ToggleCommandButton
           isActive={isItalic}
           className="italic"
-          onClick={() =>
+          onClick={() => {
             activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'italic')
-          }
+          }}
         >
           I
+        </ToggleCommandButton>
+        <ToggleCommandButton
+          isActive={isUnderline}
+          className="underline"
+          onClick={() => {
+            activeEditor.dispatchCommand(FORMAT_TEXT_COMMAND, 'underline')
+          }}
+        >
+          U
         </ToggleCommandButton>
       </div>
     </div>

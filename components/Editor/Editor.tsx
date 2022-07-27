@@ -2,11 +2,27 @@ import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { ContentEditable as LexicalContentEditable } from '@lexical/react/LexicalContentEditable'
 import { HistoryPlugin as LexicalHistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import { RichTextPlugin as LexicalRichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
-import type { EditorState } from 'lexical'
+import type { EditorState, EditorThemeClasses } from 'lexical'
 import type { FC } from 'react'
 
 import { ToolbarPlugin } from './ToolbarPlugin'
 import { TreeViewPlugin } from './TreeViewPlugin'
+
+const theme: EditorThemeClasses = {
+  ltr: 'text-left',
+  paragraph: 'mt-1 first:mt-0',
+  rtl: 'text-right',
+  text: {
+    bold: 'font-bold',
+    code: 'bg-gray-100 px-1 py-0.5 text-purple-400',
+    italic: 'italic',
+    strikethrough: 'line-through',
+    subscript: 'subscript',
+    superscript: 'superscript',
+    underline: 'underline',
+    underlineStrikethrough: '[text-decoration-line:underline_line-through]',
+  },
+}
 
 type Props = {
   defaultState?: EditorState
@@ -18,6 +34,7 @@ const Editor: FC<Props> = ({ defaultState }) => {
       <LexicalComposer
         initialConfig={{
           namespace: 'editor',
+          theme,
           onError: (error) => console.error(error),
           editorState: defaultState ?? null,
         }}
