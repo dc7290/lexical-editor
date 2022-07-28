@@ -5,13 +5,12 @@ import {
   $getSelection,
   $isRangeSelection,
   COMMAND_PRIORITY_CRITICAL,
-  CONTROLLED_TEXT_INSERTION_COMMAND,
   FORMAT_TEXT_COMMAND,
-  REMOVE_TEXT_COMMAND,
   SELECTION_CHANGE_COMMAND,
 } from 'lexical'
 import { FC, useCallback, useEffect, useState } from 'react'
 
+import { Group } from './Group'
 import { ToggleCommandButton } from './ToggleCommandButton'
 
 const ToolbarPlugin: FC = () => {
@@ -62,8 +61,8 @@ const ToolbarPlugin: FC = () => {
   }, [activeEditor, updateToolbar])
 
   return (
-    <div className="absolute top-0 flex h-12 w-full max-w-full divide-x divide-gray-300 overflow-x-auto border-b border-gray-400/50 px-4 shadow-sm">
-      <div className="my-auto flex h-full items-center space-x-2 px-2">
+    <div className="absolute top-0 flex h-12 w-full max-w-full items-center divide-x divide-gray-300 overflow-x-auto border-b border-gray-400/50 shadow-sm">
+      <Group>
         <ToggleCommandButton
           isActive={isBold}
           className="font-bold"
@@ -108,6 +107,9 @@ const ToolbarPlugin: FC = () => {
         >
           <CodeIcon className="w-4" />
         </ToggleCommandButton>
+      </Group>
+
+      <Group>
         <ToggleCommandButton
           isActive={isSubscript}
           className="text-sm"
@@ -126,7 +128,7 @@ const ToolbarPlugin: FC = () => {
         >
           X<sup>2</sup>
         </ToggleCommandButton>
-      </div>
+      </Group>
     </div>
   )
 }

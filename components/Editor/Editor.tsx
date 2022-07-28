@@ -5,8 +5,8 @@ import { RichTextPlugin as LexicalRichTextPlugin } from '@lexical/react/LexicalR
 import type { EditorState, EditorThemeClasses } from 'lexical'
 import type { FC } from 'react'
 
-import { ToolbarPlugin } from './ToolbarPlugin'
-import { TreeViewPlugin } from './TreeViewPlugin'
+import { ToolbarPlugin } from './plugin/ToolbarPlugin'
+import { TreeViewPlugin } from './plugin/TreeViewPlugin'
 
 const theme: EditorThemeClasses = {
   ltr: 'text-left',
