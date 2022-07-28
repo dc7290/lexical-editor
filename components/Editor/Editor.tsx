@@ -1,10 +1,9 @@
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
-import { ContentEditable as LexicalContentEditable } from '@lexical/react/LexicalContentEditable'
 import { HistoryPlugin as LexicalHistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
-import { RichTextPlugin as LexicalRichTextPlugin } from '@lexical/react/LexicalRichTextPlugin'
 import type { EditorState, EditorThemeClasses } from 'lexical'
 import type { FC } from 'react'
 
+import { EditArea } from './EditArea'
 import { ToolbarPlugin } from './plugin/ToolbarPlugin'
 import { TreeViewPlugin } from './plugin/TreeViewPlugin'
 
@@ -40,18 +39,10 @@ const Editor: FC<Props> = ({ defaultState }) => {
         }}
       >
         <ToolbarPlugin />
-        <LexicalRichTextPlugin
-          contentEditable={
-            <LexicalContentEditable className="h-[450px] w-full resize-none overflow-y-auto p-4 outline-none" />
-          }
-          placeholder={
-            <div className="pointer-events-none absolute top-16 left-4 select-none text-gray-400">
-              Enter some text...
-            </div>
-          }
-        />
-        <LexicalHistoryPlugin />
+        <EditArea />
         <TreeViewPlugin />
+
+        <LexicalHistoryPlugin />
       </LexicalComposer>
     </div>
   )
