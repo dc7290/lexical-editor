@@ -24,7 +24,8 @@ import { Group } from './Group'
 import { ToggleCommandButton } from './ToggleCommandButton'
 
 const colors = [
-  '#94a3b8',
+  '#fff',
+  '#000',
   '#f87171',
   '#fb923c',
   '#fbbf24',
@@ -41,10 +42,13 @@ const colors = [
   '#c084fc',
   '#e879f9',
   '#f472b6',
-  '#fb7185',
 ]
 
-const ToolbarPlugin: FC = () => {
+type Props = {
+  id: string
+}
+
+const ToolbarPlugin: FC<Props> = ({ id }) => {
   const [editor] = useLexicalComposerContext()
   const [activeEditor, setActiveEditor] = useState(editor)
 
@@ -109,6 +113,22 @@ const ToolbarPlugin: FC = () => {
       })
     )
   }, [activeEditor, updateToolbar])
+
+  const applyStyleText = (style: Record<string, string>) => {
+    activeEditor.update(() => {
+      const selection = $getSelection()
+      if ($isRangeSelection(selection)) {
+        $patchStyleText(selection, style)
+      }
+    })
+  }
+
+  const onTextColorSelect = (value: string) => {
+    applyStyleText({ color: value })
+  }
+  const onBgColorSelect = (value: string) => {
+    applyStyleText({ 'background-color': value })
+  }
 
   return (
     <div className="absolute top-0 flex h-12 w-full max-w-full flex-wrap items-center divide-x divide-gray-300  border-b border-gray-400/50 bg-indigo-50 shadow-sm">
@@ -177,7 +197,7 @@ const ToolbarPlugin: FC = () => {
             leaveTo="transform scale-95 opacity-0"
             as={Fragment}
           >
-            <Menu.Items className="absolute -bottom-1 left-1/2 z-10 w-44 -translate-x-1/2 translate-y-full bg-white p-4 shadow-[0_0_16px_rgba(0,0,0,0.2)]">
+            <Menu.Items className="absolute -bottom-1 left-1/2 z-10 w-44 -translate-x-1/2 translate-y-full bg-gray-50 p-4 shadow-[0_0_16px_rgba(0,0,0,0.2)]">
               <div className="grid grid-cols-6 gap-2">
                 {colors.map((color) => (
                   <Menu.Item key={color}>
@@ -186,16 +206,11 @@ const ToolbarPlugin: FC = () => {
                         className={clsx(
                           (active || color === textColor) &&
                             'ring-2 ring-indigo-700/80 ring-offset-1',
-                          'rounded pt-[100%]'
+                          'rounded pt-[100%] shadow-[0_0_4px] shadow-black/10'
                         )}
                         style={{ backgroundColor: color }}
                         onClick={() => {
-                          activeEditor.update(() => {
-                            const selection = $getSelection()
-                            if ($isRangeSelection(selection)) {
-                              $patchStyleText(selection, { color })
-                            }
-                          })
+                          onTextColorSelect(color)
                         }}
                       >
                         <span className="sr-only">
@@ -205,6 +220,23 @@ const ToolbarPlugin: FC = () => {
                     )}
                   </Menu.Item>
                 ))}
+              </div>
+              <div className="mt-2">
+                <label
+                  className="block rounded border border-gray-800 px-2 text-center text-sm"
+                  htmlFor={`custom-color-picker-${id}`}
+                >
+                  Custom
+                </label>
+                <input
+                  type="color"
+                  id={`custom-color-picker-${id}`}
+                  className="sr-only"
+                  value={textColor}
+                  onChange={({ target: { value } }) => {
+                    onTextColorSelect(value)
+                  }}
+                />
               </div>
             </Menu.Items>
           </Transition>
@@ -241,14 +273,7 @@ const ToolbarPlugin: FC = () => {
                         )}
                         style={{ backgroundColor: color }}
                         onClick={() => {
-                          activeEditor.update(() => {
-                            const selection = $getSelection()
-                            if ($isRangeSelection(selection)) {
-                              $patchStyleText(selection, {
-                                'background-color': color,
-                              })
-                            }
-                          })
+                          onBgColorSelect(color)
                         }}
                       >
                         <span className="sr-only">

@@ -1,7 +1,7 @@
 import { LexicalComposer } from '@lexical/react/LexicalComposer'
 import { HistoryPlugin as LexicalHistoryPlugin } from '@lexical/react/LexicalHistoryPlugin'
 import type { EditorState, EditorThemeClasses } from 'lexical'
-import type { FC } from 'react'
+import { FC, useId } from 'react'
 
 import { EditArea } from './EditArea'
 import { ToolbarPlugin } from './plugin/ToolbarPlugin'
@@ -28,17 +28,19 @@ type Props = {
 }
 
 const Editor: FC<Props> = ({ defaultState }) => {
+  const id = useId()
+
   return (
     <div className="relative rounded border border-gray-400/50 bg-white pt-12 shadow">
       <LexicalComposer
         initialConfig={{
-          namespace: 'editor',
+          namespace: id,
           theme,
           onError: (error) => console.error(error),
           editorState: defaultState ?? null,
         }}
       >
-        <ToolbarPlugin />
+        <ToolbarPlugin id={id} />
         <EditArea />
         <TreeViewPlugin />
 
