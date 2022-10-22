@@ -284,6 +284,23 @@ const ToolbarPlugin: FC<Props> = ({ id }) => {
                   </Menu.Item>
                 ))}
               </div>
+              <div className="mt-2">
+                <label
+                  className="block rounded border border-gray-800 px-2 text-center text-sm"
+                  htmlFor={`custom-bg-color-picker-${id}`}
+                >
+                  Custom
+                </label>
+                <input
+                  type="color"
+                  id={`custom-bg-color-picker-${id}`}
+                  className="sr-only"
+                  value={bgColor}
+                  onChange={({ target: { value } }) => {
+                    onBgColorSelect(value)
+                  }}
+                />
+              </div>
             </Menu.Items>
           </Transition>
         </Menu>
